@@ -131,4 +131,10 @@ class GarlandsTest < ActiveSupport::TestCase
   test "shouldn't mess with non-garland references in GarlandRails::Extend.has_many" do
     assert_equal(1, @car1.programs.size)
   end
+
+  test "shouldn't break `join`" do
+    Config.push(hash: @hash1, belongs_to: @program1)
+    some_config = Config.includes(:program).find_by("programs.name": "program1")
+    assert some_config
+  end
 end

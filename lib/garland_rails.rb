@@ -17,7 +17,9 @@ module GarlandRails
           scope = nil
         end
 
-        options = options.merge({ as: :belongs_to })
+        belongs_to_type = self.name
+        scope = -> { where(belongs_to_type: belongs_to_type) }
+        options = options.merge({ foreign_key: "belongs_to_id" })
       end
 
       super(name, scope, options, &extension)
@@ -45,7 +47,7 @@ module GarlandRails
         options = scope
         scope = nil
       end
-      options = options.merge({ polymorphic: true })
+      options = options.merge({ foreign_key: "belongs_to_id" })
 
       super(name, scope, options, &extension)
     end

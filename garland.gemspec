@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = "garland"
-  s.version     = "0.12"
-  s.date        = "2017-01-08"
+  s.version     = "0.13"
+  s.date        = "2017-01-11"
   s.summary     = "HashDiff ActiveRecord storage"
   s.description = "Provides GarlandRails::Base class for ActiveRecord, which allows you to save Hashes using snapshots and diffs (in short, it's HashDiff Rails storage)."
   s.authors     = ["Alexander Morozov"]
