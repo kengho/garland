@@ -94,7 +94,7 @@ class Program < ActiveRecord::Base
 end
 ```
 
-This will make polymorphic relation, storing id and type of relation in `belongs_to_id` and `belongs_to_type` fields of `Config`. Be sure that this won't spoil your other non-garland models' relations.
+This will make polymorphic-like relation, storing id and type of relation in `belongs_to_id` and `belongs_to_type` fields of `Config`. Be sure that this won't spoil your other non-garland models' relations.
 
 
 ```
