@@ -19,7 +19,7 @@ module GarlandRails
 
         belongs_to_type = self.name
         scope = -> { where(belongs_to_type: belongs_to_type) }
-        options = options.merge({ foreign_key: "belongs_to_id" })
+        options = options.merge(foreign_key: "belongs_to_id")
       end
 
       super(name, scope, options, &extension)
@@ -47,7 +47,7 @@ module GarlandRails
         options = scope
         scope = nil
       end
-      options = options.merge({ foreign_key: "belongs_to_id" })
+      options = options.merge(foreign_key: "belongs_to_id")
 
       super(name, scope, options, &extension)
     end
@@ -118,14 +118,14 @@ module GarlandRails
     def self.init(hash, belongs_to = nil)
       common_props = self._split_belongs_to(belongs_to)
 
-      tail_props = common_props.merge({ entity: {}.to_s, entity_type: SNAPSHOT })
+      tail_props = common_props.merge(entity: {}.to_s, entity_type: SNAPSHOT)
       brand_new_tail = self.new(tail_props)
 
       diff = HashDiffSym.diff({}, hash)
-      first_diff_props = common_props.merge({ entity: diff.to_s, entity_type: DIFF })
+      first_diff_props = common_props.merge(entity: diff.to_s, entity_type: DIFF)
       first_diff = self.new(first_diff_props)
 
-      head_props = common_props.merge({ entity: hash.to_s, entity_type: SNAPSHOT })
+      head_props = common_props.merge(entity: hash.to_s, entity_type: SNAPSHOT)
       brand_new_head = self.new(head_props)
 
       self.transaction do
@@ -168,12 +168,12 @@ module GarlandRails
       diff = HashDiffSym.diff(eval(head.entity), hash)
       return unless diff.any?
 
-      new_diff_props = common_props.merge({
+      new_diff_props = common_props.merge(
         entity: diff.to_s,
         entity_type: DIFF,
         previous: last_diff.id,
         next: head.id,
-      })
+      )
       new_diff = self.new(new_diff_props)
 
       self.transaction do
