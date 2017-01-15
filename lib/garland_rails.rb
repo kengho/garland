@@ -62,8 +62,8 @@ module GarlandRails
         belongs_to = args[:belongs_to]
         if belongs_to
           belongs_to_params = self._split_belongs_to(belongs_to)
-          belongs_to_id = belongs_to_params[:belongs_to_id]
-          belongs_to_type = belongs_to_params[:belongs_to_type]
+          belongs_to_id, belongs_to_type =
+            belongs_to_params.values_at(:belongs_to_id, :belongs_to_type)
         end
       else
         hash = args
@@ -205,7 +205,7 @@ module GarlandRails
 
          head.entity = hash.to_s
          unless head.save
-           Rails.logger.error("Unable to save head with 'entity' = '#{hash.to_s}'")
+           Rails.logger.error("Unable to save head with 'entity' = '#{hash}'")
            ActiveRecord::Base.connection.exec_rollback_to_savepoint("savepoint_before_insert_diff")
            ActiveRecord::Base.connection.release_savepoint("savepoint_before_init")
            return nil
